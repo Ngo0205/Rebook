@@ -1,18 +1,25 @@
 package com.example.rebook
 
 import android.os.Bundle
+import androidx.appcompat.app.AlertDialog
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.rebook.databinding.ActivityXoaTaiKhoanBinding
+import com.example.rebook.factory.UserViewModelFactory
+import com.example.rebook.model.UserViewModel
+import com.example.rebook.model.Users
 
+@Suppress("DEPRECATION")
 class XoaTaiKhoanActivity : AppCompatActivity() {
-
-    private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityXoaTaiKhoanBinding
+    private lateinit var userCurrent: Users
+    private var idUser: Int? = null
+    private lateinit var viewModel: UserViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,21 +27,47 @@ class XoaTaiKhoanActivity : AppCompatActivity() {
         binding = ActivityXoaTaiKhoanBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        setSupportActionBar(binding.toolbar)
-//
-//        val navController = findNavController(R.id.nav_host_fragment_content_xoa_tai_khoan)
-//        appBarConfiguration = AppBarConfiguration(navController.graph)
-//        setupActionBarWithNavController(navController, appBarConfiguration)
-//
-//        binding.fab.setOnClickListener { view ->
-//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                .setAction("Action", null).show()
-//        }
-    }
+        val bundle = intent.extras
+        if (!bundle?.isEmpty!!) {
+            userCurrent = bundle.getSerializable("user_current") as Users
+            idUser = bundle.getInt("user_id")
+        }
 
-//    override fun onSupportNavigateUp(): Boolean {
-//        val navController = findNavController(R.id.nav_host_fragment_content_xoa_tai_khoan)
-//        return navController.navigateUp(appBarConfiguration)
-//                || super.onSupportNavigateUp()
-//    }
+
+        binding.tvTenTaiKhoan.text = userCurrent.fullname
+        binding.tvEmail.text = userCurrent.email
+        binding.tvGioiTinh.text = userCurrent.gender
+        binding.tvHoTen.text = userCurrent.fullname
+        binding.tvNgaySinh.text = userCurrent.birthday
+        binding.tvMatKhau.text = userCurrent.password
+
+        val alertDialogBuilder = AlertDialog.Builder(this)
+        alertDialogBuilder.setTitle("Xoá người dùng")
+        alertDialogBuilder.setMessage("Bạn chắc chắn muốn xoá?")
+
+// Thiết lập các nút (ví dụ: nút tích cực và nút tiêu cực)
+        alertDialogBuilder.setPositiveButton("OK") { _, _ ->
+            val factory = UserViewModelFactory(this)
+            viewModel = ViewModelProvider(this, factory)[UserViewModel::class.java]
+            idUser?.let { it1 -> viewModel.deleteUser(it1) }
+            onBackPressed()
+        }
+
+        alertDialogBuilder.setNegativeButton("Cancel") { _, _ ->
+
+        }
+
+// Tạo và hiển thị AlertDialog
+
+
+        binding.btnXoaTaiKhoan.setOnClickListener {
+            val alertDialog = alertDialogBuilder.create()
+            alertDialog.show()
+        }
+        binding.btnExit.setOnClickListener {
+            onBackPressed()
+        }
+
+
+    }
 }

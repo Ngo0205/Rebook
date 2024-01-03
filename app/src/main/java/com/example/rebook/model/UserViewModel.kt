@@ -12,4 +12,8 @@ class UserViewModel(private val repository: UserRepository): ViewModel() {
     fun insertUser(name: String, email: String, gender: String, birthday:String, password:String):Long{
         return repository.insertUser(name, email, gender, birthday, password)
     }
+
+    fun deleteUser(idUser:Int):Int{
+        return repository.deleteUser(idUser)
+    }
 }

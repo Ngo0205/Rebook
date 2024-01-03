@@ -11,4 +11,8 @@ class UserRepository(private val helper: DatabaseHelper) {
     fun insertUser(name:String, email:String, gender:String, birthday:String, password:String):Long{
         return helper.insertUser(name,email,gender,birthday, password)
     }
+
+    fun deleteUser(idUser: Int):Int{
+        return helper.deleteUser(idUser)
+    }
 }

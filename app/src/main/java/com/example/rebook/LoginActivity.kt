@@ -78,8 +78,8 @@ class LoginActivity : AppCompatActivity() {
         val viewModelFactory = UserViewModelFactory(this@LoginActivity)
         viewModel = ViewModelProvider(this,viewModelFactory)[UserViewModel::class.java]
         viewModel.insertUser(
-            "ngo nguyen",
-            "ngo@gmail.com",
+            "duong nguyen",
+            "duong@gmail.com",
             "nam",
             "02/05/2002",
             "12345678"

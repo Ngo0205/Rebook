@@ -102,6 +102,11 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, "DB_RE_BOOK",
         return db.insert("users",null, cv)
     }
 
+    fun deleteUser(idUser: Int):Int{
+        val db = this.writableDatabase
+        return db.delete("users","user_id = ?", arrayOf(idUser.toString()))
+    }
+
     fun insertPost(adminId:Int, bookId:Int, body:String): Long{
         val db = this.writableDatabase
         val cv = ContentValues().apply {
