@@ -3,6 +3,7 @@ package com.example.rebook.adapter
 import android.annotation.SuppressLint
 import android.content.Context
 import android.database.Cursor
+import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -27,14 +28,11 @@ class SavedBookAdapter(
             val query = "select * from books where book_id in(select $bookId from book_saved)"
             rs = db.rawQuery(query, null)
             while (rs.moveToNext()) {
-                val img = rs.getString(1)
+                val img = rs.getBlob(1)
                 val name = rs.getString(2)
                 val author = rs.getString(3)
-                val intId = context.resources.getIdentifier(
-                    img, "drawable",
-                    context.packageName
-                )
-                binding.imgBook.setImageResource(intId)
+                val bitmap = BitmapFactory.decodeByteArray(img,0,img.size)
+                binding.imgBook.setImageBitmap(bitmap)
                 binding.txtBookName.text = name
                 binding.txtAuthor.text = author
             }

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.database.Cursor
 import android.graphics.BitmapFactory
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -41,6 +42,7 @@ class AdapterManagerPost(
                 binding.tvTacGiaa.text = author
                 binding.tvTheLoaij.text = category.toString()
                 binding.tvTenSach.text = name
+                binding.tvGioiThieu.inputType = InputType.TYPE_TEXT_FLAG_IME_MULTI_LINE
                 binding.tvGioiThieu.text = posts.body
                 val bitmapImg = BitmapFactory.decodeByteArray(imgByteArray, 0, imgByteArray.size)
                 binding.imgBook.setImageBitmap(bitmapImg)

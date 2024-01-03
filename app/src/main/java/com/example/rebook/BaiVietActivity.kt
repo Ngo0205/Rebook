@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.OnBackPressedCallback
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.rebook.adapterAdmin.AdapterManagerPost
 import com.example.rebook.databinding.ActivityBaiVietBinding
@@ -15,6 +16,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+@Suppress("DEPRECATION")
 class BaiVietActivity : AppCompatActivity() {
     private lateinit var binding: ActivityBaiVietBinding
     private lateinit var helper: DatabaseHelper
@@ -37,10 +39,7 @@ class BaiVietActivity : AppCompatActivity() {
             }
         }
         binding.btnExit.setOnClickListener {
-            val intent = Intent(
-                this, HomeAdminActivity::class.java
-            )
-            startActivity(intent)
+            onBackPressed()
         }
 
         val subItemButtonClickListener= object : SubItemButtonClickListener {

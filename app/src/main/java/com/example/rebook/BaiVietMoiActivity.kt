@@ -99,47 +99,51 @@ class BaiVietMoiActivity : AppCompatActivity() {
                 helper.insertCategory(
                     binding.edTheLoaiMoi.text.toString()
                 )
+                val selectionCate = "category_name = ?"
+                val arr1 = arrayOf(binding.edTheLoaiMoi.text.toString().trim())
                 rs = db.rawQuery(
-                    "select * from categories where category_name = ? ${
-                        binding.edTheLoaiMoi.text.toString().trim()
-                    }", null
+                    "select * from categories where $selectionCate", arr1
                 )
-                rs.moveToFirst()
-                helper.insertBooks(
-                    imgBook,
-                    binding.edTenSach.text.toString().trim(),
-                    binding.edTacGiaMoi.text.toString().trim(),
-                    rs.getInt(0),
-                    binding.edNhaXuatBanMoi.text.toString().trim()
-                )
-                rs.close()
-
-                rs = db.rawQuery(
-                    "select * from books where book_name = ? ${binding.edTenSach.text.trim()}",
-                    null
-                )
-                rs.moveToFirst()
-                var bookId = rs.getInt(0)
-
-                if (bundle != null) {
-                    val adminEmail = bundle.getString("email")
-                    val rs = db.rawQuery("select * from users where email = ? $adminEmail", null)
-                    rs.moveToFirst()
-                    val adminId = rs.getInt(0)
-
-                    helper.insertPost(
-                        adminId, bookId,
-                        binding.edMoTaMoi.text.toString()
+                if (rs.moveToFirst()) {
+                    helper.insertBooks(
+                        imgBook,
+                        binding.edTenSach.text.toString().trim(),
+                        binding.edTacGiaMoi.text.toString().trim(),
+                        rs.getInt(0),
+                        binding.edNhaXuatBanMoi.text.toString().trim()
                     )
+                    rs.close()
                 }
+
+                val selectionBook = "book_name = ?"
+                val arr2 = arrayOf(binding.edTenSach.text.toString().trim())
+                rs = db.rawQuery(
+                    "select * from books where $selectionBook",
+                    arr2
+                )
+                if (rs.moveToFirst()) {
+                    var bookId = rs.getInt(0)
+                    rs.close()
+                    if (bundle != null) {
+                        val adminEmail = bundle.getString("email")
+                        val selectionAdmin = "email = ?"
+                        val arr3 = arrayOf(adminEmail)
+                        val rs = db.rawQuery("select * from users where $selectionAdmin",
+                            arr3)
+                        rs.moveToFirst()
+                        val adminId = rs.getInt(0)
+                        helper.insertPost(
+                            adminId, bookId,
+                            binding.edMoTaMoi.text.toString()
+                        )
+                    }
+                }
+
+
             }
         }
         binding.btnExit.setOnClickListener {
-            val intent = Intent(
-                this,
-                BaiVietActivity::class.java
-            )
-            startActivity(intent)
+            onBackPressed()
         }
 
     }

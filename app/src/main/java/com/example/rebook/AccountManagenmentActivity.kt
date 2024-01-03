@@ -19,7 +19,7 @@ import kotlinx.coroutines.withContext
 import androidx.appcompat.widget.SearchView
 import java.util.Locale
 
-
+@Suppress("DEPRECATION")
 class AccountManagenmentActivity : AppCompatActivity() {
     private lateinit var adapter: AdapterManagerAccount
     private lateinit var helper: DatabaseHelper
@@ -78,10 +78,7 @@ class AccountManagenmentActivity : AppCompatActivity() {
         })
 
         binding.btnExit.setOnClickListener {
-            val intent = Intent(
-                this, HomeAdminActivity::class.java
-            )
-            startActivity(intent)
+            onBackPressed()
         }
     }
 

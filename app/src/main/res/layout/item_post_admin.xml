@@ -179,6 +179,7 @@
             android:lineSpacingMultiplier="10"
             android:lines="3"
             android:text="description"
+            android:inputType="textMultiLine"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"

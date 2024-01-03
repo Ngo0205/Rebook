@@ -75,15 +75,15 @@ class LoginActivity : AppCompatActivity() {
 //            6,
 //            "vjbnvjdsjfvhfvkjabsvygjdbfjhfgvuydbfvjdshbvdjhf"
 //        )
-//        val viewModelFactory = UserViewModelFactory(this@LoginActivity)
-//        viewModel = ViewModelProvider(this,viewModelFactory)[UserViewModel::class.java]
-//        viewModel.insertUser(
-//            "ngo nguyen",
-//            "ngo@gmail.com",
-//            "nam",
-//            "02/05/2002",
-//            "12345678"
-//        )
+        val viewModelFactory = UserViewModelFactory(this@LoginActivity)
+        viewModel = ViewModelProvider(this,viewModelFactory)[UserViewModel::class.java]
+        viewModel.insertUser(
+            "ngo nguyen",
+            "ngo@gmail.com",
+            "nam",
+            "02/05/2002",
+            "12345678"
+        )
 //        val viewModelFactory2 = BookFactory(this)
 //        viewModel = ViewModelProvider(this, viewModelFactory2)[BookViewModel::class.java]
 //        viewModel.insertBook(
@@ -134,6 +134,7 @@ class LoginActivity : AppCompatActivity() {
                     bundle.putString("email","${binding.edEmail.text}")
                     intent.putExtras(bundle)
                     startActivity(intent)
+                    finish()
                 }
                 else if (query == 'a'){
                     var intent = Intent(this@LoginActivity, HomeAdminActivity::class.java)
@@ -141,6 +142,7 @@ class LoginActivity : AppCompatActivity() {
                     bundle.putString("email","${binding.edEmail.text}")
                     intent.putExtras(bundle)
                     startActivity(intent)
+                    finish()
                 }
                 else {
                     Toast.makeText(this@LoginActivity, "Email hoặc Password sai ", Toast.LENGTH_SHORT).show()
