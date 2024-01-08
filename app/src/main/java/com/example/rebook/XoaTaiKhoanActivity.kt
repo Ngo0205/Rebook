@@ -20,6 +20,7 @@ class XoaTaiKhoanActivity : AppCompatActivity() {
     private lateinit var userCurrent: Users
     private var idUser: Int? = null
     private lateinit var viewModel: UserViewModel
+    private lateinit var alertDialog:AlertDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,13 +62,19 @@ class XoaTaiKhoanActivity : AppCompatActivity() {
 
 
         binding.btnXoaTaiKhoan.setOnClickListener {
-            val alertDialog = alertDialogBuilder.create()
+            alertDialog = alertDialogBuilder.create()
             alertDialog.show()
         }
         binding.btnExit.setOnClickListener {
             onBackPressed()
         }
 
+    }
 
+    override fun onDestroy() {
+        if(alertDialog != null && alertDialog.isShowing){
+            alertDialog.dismiss()
+        }
+        super.onDestroy()
     }
 }

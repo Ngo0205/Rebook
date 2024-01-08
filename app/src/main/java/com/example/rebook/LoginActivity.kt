@@ -34,7 +34,6 @@ class LoginActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
 
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -75,15 +74,15 @@ class LoginActivity : AppCompatActivity() {
 //            6,
 //            "vjbnvjdsjfvhfvkjabsvygjdbfjhfgvuydbfvjdshbvdjhf"
 //        )
-        val viewModelFactory = UserViewModelFactory(this@LoginActivity)
-        viewModel = ViewModelProvider(this,viewModelFactory)[UserViewModel::class.java]
-        viewModel.insertUser(
-            "duong nguyen",
-            "duong@gmail.com",
-            "nam",
-            "02/05/2002",
-            "12345678"
-        )
+//        val viewModelFactory = UserViewModelFactory(this@LoginActivity)
+//        viewModel = ViewModelProvider(this,viewModelFactory)[UserViewModel::class.java]
+//        viewModel.insertUser(
+//            "duong nguyen",
+//            "duong@gmail.com",
+//            "nam",
+//            "02/05/2002",
+//            "12345678"
+//        )
 //        val viewModelFactory2 = BookFactory(this)
 //        viewModel = ViewModelProvider(this, viewModelFactory2)[BookViewModel::class.java]
 //        viewModel.insertBook(
@@ -129,16 +128,16 @@ class LoginActivity : AppCompatActivity() {
                 )
 
                 if (query == 'u') {
-                    var intent = Intent(this@LoginActivity, MainActivity::class.java)
-                    var bundle = Bundle()
+                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                    val bundle = Bundle()
                     bundle.putString("email","${binding.edEmail.text}")
                     intent.putExtras(bundle)
                     startActivity(intent)
                     finish()
                 }
                 else if (query == 'a'){
-                    var intent = Intent(this@LoginActivity, HomeAdminActivity::class.java)
-                    var bundle = Bundle()
+                    val intent = Intent(this@LoginActivity, HomeAdminActivity::class.java)
+                    val bundle = Bundle()
                     bundle.putString("email","${binding.edEmail.text}")
                     intent.putExtras(bundle)
                     startActivity(intent)

@@ -84,6 +84,7 @@ class PersonalFragment : Fragment() {
         val gender = arguments?.getString("gender")
         val birthday = arguments?.getString("birth")
         val password = arguments?.getString("pass")
+        val id = arguments?.getInt("id")
 
         binding.edNamePro.setText(name)
         binding.edEmailPro.setText(email)
@@ -104,13 +105,16 @@ class PersonalFragment : Fragment() {
                 enableEditing(binding)
                 val viewModelFactory = UserViewModelFactory(requireContext())
                 viewModel = ViewModelProvider(this, viewModelFactory)[UserViewModel::class.java]
-                viewModel.updateUserData(
-                    binding.edNamePro.text.toString().trim(),
-                    binding.edEmailPro.text.toString().trim(),
-                    binding.edGenderPro.text.toString().trim(),
-                    binding.edBirthPro.text.toString().trim(),
-                    binding.edPassPro.text.toString().trim(),
-                )
+                if (id != null) {
+                    viewModel.updateUserData(
+                        id,
+                        binding.edNamePro.text.toString().trim(),
+                        binding.edEmailPro.text.toString().trim(),
+                        binding.edGenderPro.text.toString().trim(),
+                        binding.edBirthPro.text.toString().trim(),
+                        binding.edPassPro.text.toString().trim(),
+                    )
+                }
             }
         }
     }

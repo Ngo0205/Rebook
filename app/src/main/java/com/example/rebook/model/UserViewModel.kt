@@ -6,8 +6,8 @@ import com.example.rebook.repositories.UserRepository
 
 class UserViewModel(private val repository: UserRepository): ViewModel() {
 
-    fun updateUserData(name: String, email: String, gender: String, birthday:String, password:String):Int{
-        return repository.updateUserData(name,email,gender,birthday,password)
+    fun updateUserData(idUser: Int, name: String, email: String, gender: String, birthday:String, password:String):Int{
+        return repository.updateUserData(idUser,name,email,gender,birthday,password)
     }
     fun insertUser(name: String, email: String, gender: String, birthday:String, password:String):Long{
         return repository.insertUser(name, email, gender, birthday, password)

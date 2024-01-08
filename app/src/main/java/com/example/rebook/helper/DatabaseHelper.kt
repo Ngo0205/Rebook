@@ -74,11 +74,9 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, "DB_RE_BOOK",
     }
 
 
-    fun updateUserData(full_name:String,email:String, gender:String, birthday:String, password:String ):Int{
+    fun updateUserData(idUser: Int, full_name:String,email:String, gender:String, birthday:String, password:String ):Int{
 
         val db = this.writableDatabase
-        rs = db.rawQuery("select * from users limit 10",null)
-        rs.moveToFirst()
         val cv = ContentValues().apply {
             put("full_name", full_name)
             put("email", email)
@@ -86,7 +84,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, "DB_RE_BOOK",
             put("birthday", birthday)
             put("password", password)
         }
-        return db.update("users",cv,"user_id=?", arrayOf(rs.getString(0)))
+        return db.update("users",cv,"user_id=?", arrayOf(idUser.toString()))
     }
 
     fun insertUser(full_name:String,email:String, gender:String, birthday:String, password:String ): Long{

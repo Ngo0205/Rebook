@@ -32,10 +32,11 @@ class AdapterManagerAccount(
             val db = helper.readableDatabase
             val query = "select * from users where email = '${user.email}'"
             rs = db.rawQuery(query,null)
-            rs.moveToFirst()
-            binding.txtID.text = rs.getInt(0).toString()
-            binding.txtEmail.text = user.email
-            binding.txtName.text = user.fullname
+            if(rs.moveToFirst()){
+                binding.txtID.text = rs.getInt(0).toString()
+                binding.txtEmail.text = user.email
+                binding.txtName.text = user.fullname
+            }
         }
     }
 
