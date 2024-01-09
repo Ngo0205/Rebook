@@ -59,18 +59,14 @@ class HomePostAdapter(
                 }
 
             }
-            binding.imgDanhGia.setOnClickListener {
-                currentPost?.let {
-                    listener.onButtonClick(adapterPosition,3, it)
-                }
 
-            }
+
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ActivityPostBinding.inflate(inflater,parent,false)
+        binding = ActivityPostBinding.inflate(inflater,parent,false)
         return PostHolder(binding, listener)
     }
 

@@ -173,7 +173,6 @@ class LoginActivity : AppCompatActivity() {
             } else{
                 'u'
             }
-            rs.close()
         }
         return 'f'
     }

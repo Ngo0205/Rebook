@@ -7,8 +7,10 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.icu.text.CaseMap.Title
 import androidx.core.content.contentValuesOf
 import com.example.rebook.model.BookSaved
+import com.example.rebook.model.Comment
 import com.example.rebook.model.Posts
 import com.example.rebook.model.Users
 import java.io.ByteArrayOutputStream
@@ -210,5 +212,33 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, "DB_RE_BOOK",
             }
             return db.update("categories", cv, "category_id =?", arrayOf(rs.getInt(0).toString()))
         }
+    }
+
+    fun insertComment(userId: Int, bookId: Int, status:Int, title: String):Long{
+        db = this.writableDatabase
+        val cv = ContentValues().apply {
+            put("user_id", userId)
+            put("book_id", bookId)
+            put("status", status)
+            put("title", title)
+        }
+        return db.insert("comments_book", null, cv)
+    }
+
+    fun getAllComment(): List<Comment>{
+        db = this.readableDatabase
+        var list = mutableListOf<Comment>()
+        val rs = db.rawQuery("select * from comments_book", null)
+        if(rs.moveToFirst()){
+            do {
+                val uId = rs.getInt(1)
+                val bId = rs.getInt(2)
+                val status = rs.getInt(3)
+                val title = rs.getString(4)
+                val comment = Comment(uId, bId, status, title)
+                list.add(comment)
+            }while (rs.moveToNext())
+        }
+        return list
     }
 }

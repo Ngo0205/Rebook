@@ -1,5 +1,6 @@
 package com.example.rebook.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.rebook.BinhLuanActivity
 import com.example.rebook.adapter.HomePostAdapter
 import com.example.rebook.databinding.FragmentHomeBinding
 import com.example.rebook.factory.BookSavedFactory
@@ -65,16 +67,21 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         helper = DatabaseHelper(requireContext())
+        val db = helper.readableDatabase
+
+        var email = arguments?.getString("email")
+        val rs = db.rawQuery("select * from users where email = '$email'", null)
+        rs.moveToFirst()
+        var userId = rs.getString(0).toInt()
         val subItemButtonClickListener = object : SubItemButtonClickListener {
+            override fun onButtonClickUser(position: Int) {
+                TODO("Not yet implemented")
+            }
+
             override fun onButtonClick(position: Int, buttonId: Int, posts: Posts) {
                 when (buttonId) {
                     1 -> {
-                        val db = helper.readableDatabase
                         var bookId = posts.bookId
-                        var email = arguments?.getString("email")
-                        val rs = db.rawQuery("select * from users where email = '$email'", null)
-                        rs.moveToFirst()
-                        var userId = rs.getString(0).toInt()
                         val viewModelFactory = BookSavedFactory(requireContext())
                         viewModel = ViewModelProvider(
                             requireActivity(),
@@ -86,12 +93,16 @@ class HomeFragment : Fragment() {
                     }
 
                     2 -> {
+                        val intent = Intent(requireContext(), BinhLuanActivity::class.java)
 
+                        val bundle = Bundle().apply {
+                            putInt("bookId", posts.bookId)
+                            putInt("userId", userId)
+                        }
+                        intent.putExtras(bundle)
+                        startActivity(intent)
                     }
 
-                    3 -> {
-
-                    }
                 }
             }
 
@@ -101,7 +112,8 @@ class HomeFragment : Fragment() {
 
         }
 
-        adapter = HomePostAdapter(requireContext(), loadDataFromDatabase(), subItemButtonClickListener)
+        adapter =
+            HomePostAdapter(requireContext(), loadDataFromDatabase(), subItemButtonClickListener)
         loadDataFromDatabase()
         binding.rvHome.adapter = adapter
         binding.rvHome.layoutManager = LinearLayoutManager(

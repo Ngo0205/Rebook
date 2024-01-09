@@ -43,6 +43,10 @@ class BaiVietActivity : AppCompatActivity() {
         }
 
         val subItemButtonClickListener= object : SubItemButtonClickListener {
+            override fun onButtonClickUser(position: Int) {
+                TODO("Not yet implemented")
+            }
+
             override fun onButtonClick(position: Int, buttonId: Int, posts: Posts) {
             }
 

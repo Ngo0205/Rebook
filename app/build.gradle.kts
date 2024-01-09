@@ -51,5 +51,8 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation ("io.grpc:grpc-okhttp:1.32.2")
     implementation ("androidx.appcompat:appcompat:1.3.0")
+    implementation ("androidx.lifecycle:lifecycle-viewmodel:2.4.1")
+    implementation ("androidx.lifecycle:lifecycle-livedata:2.4.1")
+
 
 }
