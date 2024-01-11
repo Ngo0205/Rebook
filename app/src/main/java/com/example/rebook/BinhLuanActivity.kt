@@ -68,7 +68,6 @@ class BinhLuanActivity : AppCompatActivity() {
             }else if(TextUtils.isEmpty(title)){
                 binding.edBinhLuan.error = "Comment is empty"
                 binding.edBinhLuan.focusable
-
             }
             else{
 //                Toast.makeText(this, "$rate", Toast.LENGTH_SHORT).show()

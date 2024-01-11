@@ -180,7 +180,6 @@
             android:fontFamily="@font/notoseriftc_medium"
             android:gravity="start|top"
             android:lines="3"
-            android:textMultiLine = "true"
             android:text="description"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
