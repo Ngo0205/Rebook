@@ -40,7 +40,7 @@ class HomePostAdapter(
                 binding.tvTacGiaa.text = author
                 binding.tvTheLoaij.text = category.toString()
                 binding.tvTenSach.text = name
-                binding.tvGioiThieu.text = posts.body
+                binding.tvGioiThieu.setText(posts.body)
                 val bitmapImg = BitmapFactory.decodeByteArray(imgByteArray, 0, imgByteArray.size)
                 binding.imgBook.setImageBitmap(bitmapImg)
             }

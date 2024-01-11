@@ -17,11 +17,11 @@
             android:id="@+id/tvNameBook"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginLeft="50dp"
             android:layout_weight="1"
             android:fontFamily="@font/notoseriftc_medium"
             android:paddingTop="5dp"
             android:text="Tên sách"
-            android:layout_marginLeft="50dp"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="16sp"
@@ -83,16 +83,16 @@
         <TextView
             android:id="@+id/tvTenSach"
             android:layout_width="175dp"
-            android:layout_height="60dp"
-            android:layout_marginStart="53dp"
-            android:layout_marginEnd="28dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="52dp"
+            android:layout_marginEnd="27dp"
             android:layout_marginBottom="12dp"
             android:fontFamily="@font/notoseriftc_medium"
             android:text="name"
             android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@+id/textView35"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.478"
             app:layout_constraintStart_toEndOf="@+id/imgBook"
             app:layout_constraintTop_toBottomOf="@+id/textView33" />
 
@@ -131,8 +131,10 @@
             android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@+id/tvGioiThieu"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.44"
             app:layout_constraintStart_toEndOf="@+id/tvTheLoaij"
-            app:layout_constraintTop_toBottomOf="@+id/textView39" />
+            app:layout_constraintTop_toBottomOf="@+id/textView39"
+            app:layout_constraintVertical_bias="1.0" />
 
         <TextView
             android:id="@+id/textView37"
@@ -167,6 +169,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvTheLoaij" />
 
+
         <TextView
             android:id="@+id/tvGioiThieu"
             android:layout_width="355dp"
@@ -176,8 +179,8 @@
             android:ems="10"
             android:fontFamily="@font/notoseriftc_medium"
             android:gravity="start|top"
-            android:lineSpacingMultiplier="10"
             android:lines="3"
+            android:textMultiLine = "true"
             android:text="description"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"

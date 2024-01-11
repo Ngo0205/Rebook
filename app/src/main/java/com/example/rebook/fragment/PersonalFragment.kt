@@ -1,5 +1,6 @@
 package com.example.rebook.fragment
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.text.InputType
@@ -10,6 +11,7 @@ import android.widget.EditText
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.rebook.LoginActivity
 import com.example.rebook.R
 import com.example.rebook.databinding.FragmentPersonalBinding
 import com.example.rebook.factory.UserViewModelFactory
@@ -54,8 +56,7 @@ class PersonalFragment : Fragment() {
             editText.inputType = InputType.TYPE_TEXT_FLAG_IME_MULTI_LINE
             editText.keyListener = EditText(context).keyListener
         }
-        binding.edNamePro.focusable
-
+        binding.edNamePro.requestFocus()
         isEditingEnabled = true
     }
 
@@ -116,6 +117,13 @@ class PersonalFragment : Fragment() {
                     )
                 }
             }
+        }
+
+        binding.btnLogOut.setOnClickListener {
+            val intent = Intent(requireContext(), LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+            requireActivity().finish()
         }
     }
 

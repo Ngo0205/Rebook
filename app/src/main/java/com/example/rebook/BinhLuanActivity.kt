@@ -1,9 +1,12 @@
 package com.example.rebook
 
 import android.annotation.SuppressLint
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.TextUtils
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -28,6 +31,7 @@ class BinhLuanActivity : AppCompatActivity() {
     private var userId: Int = 0
     private var bookId: Int = 0
 
+    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,19 +60,24 @@ class BinhLuanActivity : AppCompatActivity() {
             binding.rvComment.adapter = adapter
         }
 
-
-//        binding.rateUser.setOnRatingBarChangeListener { _, rating, _ ->
-//
-//            Toast.makeText(this, "$rating", Toast.LENGTH_SHORT).show()
-//        }
         binding.btnCMT.setOnClickListener {
             var rate = binding.rateUser.rating.toInt()
             val title = binding.edBinhLuan.text.toString().trim()
-            Toast.makeText(this, "$rate", Toast.LENGTH_SHORT).show()
-            viewModel.insertComment(userId, bookId, rate, title)
-            loadDataFromDatabase()
-            binding.rateUser.rating = 0.0f
-            binding.edBinhLuan.setText("")
+            if(TextUtils.isEmpty(rate.toString())){
+                rate = 5
+            }else if(TextUtils.isEmpty(title)){
+                binding.edBinhLuan.error = "Comment is empty"
+                binding.edBinhLuan.focusable
+
+            }
+            else{
+//                Toast.makeText(this, "$rate", Toast.LENGTH_SHORT).show()
+                viewModel.insertComment(userId, bookId, rate, title)
+                loadDataFromDatabase()
+                binding.rateUser.rating = 0.0f
+                binding.edBinhLuan.setText("")
+            }
+
         }
 
     }
